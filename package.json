@@ -1,0 +1,38 @@
+{
+  "name": "smart-campus",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "lint": "eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx",
+    "prettier": "prettier --write .",
+    "build": "tailwindcss -i ./src/style.css -o ./dist/tailwind.css --watch"
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "echarts": "^5.4.2",
+    "eslint-config-prettier": "^8.8.0",
+    "install": "^0.13.0",
+    "postcss-pxtorem": "^6.0.0",
+    "prettier": "^3.0.0",
+    "vue": "^3.3.4",
+    "vue-router": "4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.1",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.44.0",
+    "eslint-plugin-vue": "^9.15.1",
+    "postcss": "^8.4.25",
+    "sass": "^1.63.6",
+    "sass-loader": "^13.3.2",
+    "tailwindcss": "^3.3.2",
+    "typescript": "^5.1.6",
+    "vite": "^4.4.0",
+    "vue-tsc": "^1.8.3"
+  }
+}
