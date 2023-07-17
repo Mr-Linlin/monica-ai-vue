@@ -10,18 +10,22 @@
     "build": "tailwindcss -i ./src/style.css -o ./dist/tailwind.css --watch"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
     "axios": "^1.4.0",
     "echarts": "^5.4.2",
     "element-plus": "^2.3.8",
     "eslint-config-prettier": "^8.8.0",
     "install": "^0.13.0",
+    "pinia": "^2.1.4",
     "postcss-pxtorem": "^6.0.0",
     "prettier": "^3.0.0",
+    "qs": "^6.11.2",
     "vue": "^3.3.4",
     "vue-router": "4"
   },
   "devDependencies": {
     "@types/node": "^20.4.1",
+    "@types/qs": "^6.9.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-vue": "^4.2.3",

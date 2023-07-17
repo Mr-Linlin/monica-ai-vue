@@ -24,7 +24,7 @@ export default defineConfig({
     alias: {
       '@': resolve('src'),
       components: resolve('src/components'),
-      apis: resolve('src/apis'),
+      api: resolve('src/api'),
       views: resolve('src/views'),
       utils: resolve('src/utils'),
       routes: resolve('src/routes'),
@@ -49,9 +49,9 @@ export default defineConfig({
     proxy: {
       // 选项写法
       '/api': {
-        target: '',
+        target: 'http://localhost:7003/api',
         changeOrigin: true,
-        rewrite: path => path.replace()
+        rewrite: (path) => path.replace(/^\/api/, '')
       }
     }
   }
