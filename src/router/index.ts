@@ -3,7 +3,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    component: () => import('@/views/layout/index.vue'), // 注意这里要带上 文件后缀.vue
+    component: () => import('@/views/layout/index.vue'),
   },
   {
     path: '/login',

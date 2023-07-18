@@ -104,10 +104,12 @@ import { ElNotification } from "element-plus";
 import { User, View } from "@element-plus/icons-vue";
 import api from "api/apis";
 import { useCommon } from "@/store/common";
+import { useRouter } from "vue-router";
 const formRef = ref<FormInstance>();
 const regFormRef = ref<FormInstance>();
 const isRegister = ref(false);
 const { setConfig } = useCommon();
+const router = useRouter();
 const dynamicForm = reactive({
   phone: "",
   password: "",
@@ -160,7 +162,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
           duration: 1500,
         });
         if (!isRegister.value) {
-          setConfig(res);
+          await setConfig(res);
+          router.push("/");
         } else {
           isRegister.value = false;
           formEl.resetFields();

@@ -6,9 +6,10 @@ export const useCommon = defineStore('common', {
     }
   },
   actions: {
-    setConfig(data: any) {
+    async setConfig(data: any) {
       if (data) {
-
+        localStorage.setItem('token', data.access_token)
+        localStorage.setItem('user', JSON.stringify(data.user))
       }
 
     },
