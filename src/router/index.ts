@@ -7,6 +7,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/login',
+    name: 'login',
     component: () => import('@/views/login/index.vue')
   },
 ]
@@ -14,6 +15,20 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+})
+// 导航守卫
+router.beforeEach(async (to, from, next) => {
+  const token = localStorage.getItem('token')
+  if (!token) {
+    if (to.name === 'login') {
+      next()
+    } else {
+      router.push('login')
+      next()
+    }
+  } else {
+    next()
+  }
 })
 
 export default router
