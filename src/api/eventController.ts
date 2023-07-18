@@ -1,6 +1,6 @@
 import { fetchEventSource } from '@microsoft/fetch-event-source';
 
-export class EventController {
+class EventController {
   private eventController: AbortController | null = null;
 
   public startFetchEvent = (url: string, body: string, outputCallback: (res: string) => void, chatEnd: () => void): void => {
@@ -39,3 +39,4 @@ export class EventController {
     }
   };
 }
+export default new EventController()
