@@ -4,6 +4,13 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('@/views/layout/index.vue'),
+    redirect: '/chat',
+    children: [
+      {
+        path: '/chat',
+        component: () => import('@/views/chat/index.vue')
+      }
+    ]
   },
   {
     path: '/login',

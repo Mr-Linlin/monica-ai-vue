@@ -83,35 +83,14 @@
             </el-popover>
           </div>
         </header>
-        <div class="content flex-1 flex flex-col">
-          <div class="chat-box flex-1 flex"></div>
-          <div class="chat-input felx flex-col">
-            <div class="box-btn my-1.5">
-              <el-button size="small" type="primary">新会话</el-button>
-              <el-button size="small">历史记录</el-button>
-              <el-button size="small">提示词</el-button>
-            </div>
-            <div class="editable-area flex-1">
-              <textarea
-                ref="editableDiv"
-                class="editable"
-                v-model.trim="editableContent"
-                placeholder="请问我任何问题"
-              />
-              <span class="content-count"
-                >{{ editableContent.length }} / 4000</span
-              >
-              <span v-if="!editableContent" class="cursor-pointer none-send" />
-              <span v-if="editableContent" class="send cursor-pointer" />
-            </div>
-          </div>
+        <div class="content-wrap flex-1">
+          <router-view></router-view>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
 import { useCommon } from "@/store/common";
 import settingAvatarPng from "@/assets/imgs/home/setting-avatar.png";
 
@@ -128,12 +107,9 @@ const toPage = (type: string) => {
   switch (type) {
     case "login_out":
       loginOut();
-
       break;
   }
 };
-
-const editableContent = ref("");
 </script>
 <style scoped lang="scss">
 .layout {
@@ -204,62 +180,8 @@ const editableContent = ref("");
         }
       }
     }
-    .content {
-      // background-color: #f1f5f9;
-      border-bottom-left-radius: 12px;
-      border-bottom-right-radius: 12px;
-      .chat-input {
-        position: relative;
-        width: 100%;
-        padding: 0 16px;
-        z-index: 501;
-        height: 166px;
-        background: #f4f6f8;
-        border-top: 1px solid rgba(145, 158, 171, 0.05);
-        border-bottom-left-radius: 12px;
-        border-bottom-right-radius: 12px;
-        .editable-area {
-          position: relative;
-          height: 115px;
-          font-size: 14px;
-          border-radius: 6px;
-          width: 100%;
-          background-color: #ffffff;
-          .editable {
-            width: 100%;
-            user-select: none;
-            padding: 12px;
-          }
-          .content-count {
-            position: absolute;
-            color: #808080;
-            left: 16px;
-            bottom: 10px;
-          }
-          .send {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            right: 16px;
-            bottom: 10px;
-            background-image: url("../../assets/imgs/home/send-active.png");
-            background-size: 100% 100%;
-            &:hover {
-              background-image: url("../../assets/imgs/home/send-hover.png");
-            }
-          }
-          .none-send {
-            cursor: not-allowed;
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            right: 16px;
-            bottom: 10px;
-            background-image: url("../../assets/imgs/home/send.png");
-            background-size: 100% 100%;
-          }
-        }
-      }
+    .content-wrap {
+      height: 100%;
     }
   }
 }

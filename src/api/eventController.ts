@@ -26,8 +26,10 @@ class EventController {
         chatEnd();
       },
       onmessage: (response) => {
+        // console.log(response.data)
         const data = decodeURIComponent(response.data.replace(/\+/g, '%20'));
-        outputCallback(data);
+        outputCallback(data)
+
       },
     });
   };

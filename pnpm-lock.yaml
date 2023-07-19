@@ -17,6 +17,7 @@ specifiers:
   eslint-plugin-vue: ^9.15.1
   highlight.js: ^11.8.0
   install: ^0.13.0
+  marked: ^5.1.1
   pinia: ^2.1.4
   postcss: ^8.4.25
   postcss-pxtorem: ^6.0.0
@@ -42,6 +43,7 @@ dependencies:
   eslint-config-prettier: registry.npmmirror.com/eslint-config-prettier/8.8.0_eslint@8.44.0
   highlight.js: registry.npmmirror.com/highlight.js/11.8.0
   install: registry.npmmirror.com/install/0.13.0
+  marked: registry.npmmirror.com/marked/5.1.1
   pinia: registry.npmmirror.com/pinia/2.1.4_typescript@5.1.6+vue@3.3.4
   postcss-pxtorem: registry.npmmirror.com/postcss-pxtorem/6.0.0_postcss@8.4.25
   prettier: registry.npmmirror.com/prettier/3.0.0
@@ -2038,6 +2040,14 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/sourcemap-codec': registry.npmmirror.com/@jridgewell/sourcemap-codec/1.4.15
+
+  registry.npmmirror.com/marked/5.1.1:
+    resolution: {integrity: sha512-bTmmGdEINWmOMDjnPWDxGPQ4qkDLeYorpYbEtFOXzOruTwUE671q4Guiuchn4N8h/v6NGd7916kXsm3Iz4iUSg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/marked/-/marked-5.1.1.tgz}
+    name: marked
+    version: 5.1.1
+    engines: {node: '>= 18'}
+    hasBin: true
+    dev: false
 
   registry.npmmirror.com/memoize-one/6.0.0:
     resolution: {integrity: sha512-rkpe71W0N0c0Xz6QD0eJETuWAJGnJ9afsl1srmwPrI+yBCkge5EycXXbYRyvL29zZVUWQCY7InPRCv3GDXuZNw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/memoize-one/-/memoize-one-6.0.0.tgz}
