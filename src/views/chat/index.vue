@@ -103,10 +103,10 @@ const sendMsg = async () => {
       url,
       data,
       (res: string) => {
-        const regex = /"content\\":\\"([^\\"]+)\\"/g;
+        const regex = /\\"content\\":\\"(.*?)\\"/g;
         let match;
         while ((match = regex.exec(res)) !== null) {
-          replyMsg.value += match[1];
+          replyMsg.value += match[1].replace(/\\n/g, "\n").replace(/\\/g, "");
         }
       },
       () => {
@@ -173,7 +173,7 @@ const scrollEnd = () => {
     border-bottom-right-radius: 12px;
     .chat-box {
       position: relative;
-      height: calc(100% - 166px);
+      max-height: 531px;
       overflow-y: auto;
       padding: 15px 20px;
       .chat-item {

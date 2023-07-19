@@ -24,8 +24,8 @@ watch(
           gfm: true,
           breaks: true,
         });
-        highlightCode();
-        console.log(html.value);
+        // highlightCode();
+        // console.log(html.value);
       });
     }
   }
@@ -39,7 +39,7 @@ if (props.content) {
       gfm: true,
       breaks: true,
     });
-    highlightCode();
+    // highlightCode();
   });
 }
 

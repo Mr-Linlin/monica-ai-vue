@@ -17,6 +17,7 @@ class Request {
         if (token) {
           config.headers!.Authorization = 'Bearer ' + token;
         }
+
         return config
       },
       (err: any) => {
@@ -26,6 +27,13 @@ class Request {
     this.instance.interceptors.response.use((response: AxiosResponse) => {
       const code = response.status
       if (code == 200) {
+        switch (response.data.code) {
+          case 200:
+          case 201:
+            return Promise.resolve(response.data)
+          case 401:
+            return Promise.reject('token身份过期')
+        }
         return Promise.resolve(response.data)
       }
       return Promise.reject('服务器异常')

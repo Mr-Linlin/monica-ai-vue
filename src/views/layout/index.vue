@@ -19,7 +19,17 @@
                   : 'level1'
               "
             >
-              <img class="mr-0.5" src="~@/assets/imgs/home/level1.png" alt="" />
+              <img
+                class="mr-0.5"
+                :src="
+                  userInfo.level === 2
+                    ? level3
+                    : userInfo.level === 1
+                    ? level2
+                    : level1
+                "
+                alt=""
+              />
               <span>{{ userInfo.level_name }}</span>
             </div>
             <el-divider direction="vertical" />
@@ -28,6 +38,7 @@
               width="230"
               trigger="hover"
               transition="el-zoom-in-top"
+              @show="getUserDetail"
             >
               <template #reference>
                 <div class="cursor-pointer flex items-center avatar-wrapper">
@@ -93,9 +104,12 @@
 <script setup lang="ts">
 import { useCommon } from "@/store/common";
 import settingAvatarPng from "@/assets/imgs/home/setting-avatar.png";
+import level1 from "@/assets/imgs/home/level1.png";
+import level2 from "@/assets/imgs/home/level2.png";
+import level3 from "@/assets/imgs/home/level3.png";
+import { ref } from "vue";
 
-const { loginOut, getUser } = useCommon();
-const userInfo = getUser;
+const { loginOut, getUser, getUserInfo } = useCommon();
 const popoverList = [
   {
     name: "退出登录",
@@ -103,6 +117,12 @@ const popoverList = [
     img: settingAvatarPng,
   },
 ];
+let userInfo = ref(null);
+
+userInfo = getUser;
+const getUserDetail = async () => {
+  userInfo = await getUserInfo();
+};
 const toPage = (type: string) => {
   switch (type) {
     case "login_out":

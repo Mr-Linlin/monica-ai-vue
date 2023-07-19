@@ -9,4 +9,7 @@ export default {
   upload(data: any) { //文件上传
     return request.post('/common/upload', data)
   },
+  getUserInfo(params: any) {//用户详情
+    return request.get('/user/info', params)
+  }
 }

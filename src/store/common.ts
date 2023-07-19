@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ElNotification } from "element-plus";
+import api from '@/api/apis';
 
 export const useCommon = defineStore('common', {
   state: () => {
@@ -30,16 +31,26 @@ export const useCommon = defineStore('common', {
         duration: 1500,
       });
       location.reload()
+    },
+    async getUserInfo() {
+      const { code, user } = await api.getUserInfo()
+      // console.log(user);
+      if (code == 200) {
+        localStorage.setItem('user', JSON.stringify(user))
+        return user
+      }
     }
   },
   getters: {
-    getUser: (state: { user: any }) => {
-      if (state.user) {
-        return state.user
+    getUser(): any {
+      if (this.user) {
+
+        return this.user
       } else {
         const user = localStorage.getItem('user');
         if (user !== null) {
-          return JSON.parse(user);
+          this.user = JSON.parse(user)
+          return this.user;
         }
         return {}
       }
