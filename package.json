@@ -7,7 +7,7 @@
     "dev": "vite",
     "lint": "eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx",
     "prettier": "prettier --write .",
-    "build": "tailwindcss -i ./src/style.css -o ./dist/tailwind.css --watch"
+    "build": "vite build"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",

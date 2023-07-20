@@ -6,7 +6,7 @@
 <script setup lang="ts">
 import { nextTick, ref, watch } from "vue";
 import hljs from "highlight.js";
-import "highlight.js/styles/github.css";
+import "highlight.js/styles/github-dark.css";
 import { marked } from "marked";
 const html = ref("");
 const props = defineProps<{
@@ -73,7 +73,7 @@ const highlightCode = () => {
   });
 };
 </script>
-<style>
+<style lang="scss">
 .markdown p {
   margin: 8px 0 !important;
   white-space: pre-wrap;

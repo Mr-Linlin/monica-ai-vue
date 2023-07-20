@@ -102,12 +102,13 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useCommon } from "@/store/common";
+import { useCommon } from "store/common";
 import settingAvatarPng from "@/assets/imgs/home/setting-avatar.png";
 import level1 from "@/assets/imgs/home/level1.png";
 import level2 from "@/assets/imgs/home/level2.png";
 import level3 from "@/assets/imgs/home/level3.png";
 import { ref } from "vue";
+import User from "model/user";
 
 const { loginOut, getUser, getUserInfo } = useCommon();
 const popoverList = [
@@ -117,7 +118,17 @@ const popoverList = [
     img: settingAvatarPng,
   },
 ];
-let userInfo = ref(null);
+let userInfo = ref<User>({
+  id: "",
+  avatar: "",
+  email: "",
+  phone: "",
+  level: 0,
+  username: "",
+  level_name: "",
+  buy_chat_times: 0,
+  chat_times: 0,
+});
 
 userInfo = getUser;
 const getUserDetail = async () => {
