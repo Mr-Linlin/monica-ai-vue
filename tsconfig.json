@@ -52,7 +52,8 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "./src/model/**/*",
-    "env.d.ts"
+    "env.d.ts",
+    "canvas-icon.d.ts"
   ],
   "references": [
     {
