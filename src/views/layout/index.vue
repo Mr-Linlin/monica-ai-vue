@@ -108,7 +108,7 @@ import level1 from "@/assets/imgs/home/level1.png";
 import level2 from "@/assets/imgs/home/level2.png";
 import level3 from "@/assets/imgs/home/level3.png";
 import { ref } from "vue";
-import User from "model/user";
+import { User } from "../../model/user";
 
 const { loginOut, getUser, getUserInfo } = useCommon();
 const popoverList = [
