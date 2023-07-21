@@ -166,8 +166,8 @@ const showReplyContent = () => {
     const printChar = () => {
       if (index <= resLength) {
         if (currentLength === replyMsg.value.length) {
-          const newContent = originalValue.substr(index, 1);
-          chatList[length].content += newContent;
+          const newContent = originalValue.substr(0, index);
+          chatList[length].content = newContent;
           index++;
           scrollEnd();
           requestAnimationFrame(printChar);

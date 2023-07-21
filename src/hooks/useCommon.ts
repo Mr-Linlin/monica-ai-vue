@@ -39,9 +39,27 @@ const useCommon = () => {
     }
     return `${formattedDate} ${formattedTime}`;
   }
+  // 节流
+  type Procedure = (...args: any[]) => void;
+
+  const debounce = <T extends Procedure>(func: T, delay: number): T => {
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
+    const debouncedFunction = function (this: any, ...args: any[]) {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      timeoutId = setTimeout(() => {
+        func.apply(this, args);
+      }, delay);
+    };
+
+    return debouncedFunction as T;
+  };
   return {
     copyText,
-    formatTime
+    formatTime,
+    debounce
   }
 }
 export default useCommon

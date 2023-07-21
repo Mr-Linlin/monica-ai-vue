@@ -49,24 +49,8 @@ if (props.content) {
     highlightCode();
   });
 }
-type Procedure = (...args: any[]) => void;
 
-const debounce = <T extends Procedure>(func: T, delay: number): T => {
-  let timeoutId: ReturnType<typeof setTimeout> | undefined;
-
-  const debouncedFunction = function (this: any, ...args: any[]) {
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-    }
-    timeoutId = setTimeout(() => {
-      func.apply(this, args);
-    }, delay);
-  };
-
-  return debouncedFunction as T;
-};
-
-const highlightCode = debounce(() => {
+const highlightCode = () => {
   nextTick(() => {
     if (markdownRef.value !== null) {
       const pres = (markdownRef.value as HTMLElement).querySelectorAll(
@@ -78,9 +62,13 @@ const highlightCode = debounce(() => {
         if (copys.length == 0) {
           const div = document.createElement("div");
           div.classList.add("copy-header");
+          const classLanguage = pre.classList[0];
+          const language = classLanguage.split("-")[1] || " ";
+          const languageSpan = document.createElement("span");
+          languageSpan.className = "row-language";
+          languageSpan.textContent = language;
           const span = document.createElement("span");
           span.innerHTML = "复制";
-          // span.setAttribute('v-copy-text', '');
           span.addEventListener("click", () => {
             if (pre !== null) {
               copyText((pre as HTMLElement).innerText);
@@ -94,6 +82,7 @@ const highlightCode = debounce(() => {
             "lin",
             "cursor-pointer"
           );
+          div.appendChild(languageSpan);
           div.appendChild(span);
           if (preElement !== null) {
             const referenceNode = preElement.firstChild; // 获取父节点的第一个子节点
@@ -103,7 +92,7 @@ const highlightCode = debounce(() => {
       });
     }
   });
-}, 10);
+};
 </script>
 <style lang="scss">
 .markdown {
@@ -140,7 +129,7 @@ pre .copy-header {
   padding: 0 16px;
   font-size: 12px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   gap: 8px;
   font-size: 0.75rem;
