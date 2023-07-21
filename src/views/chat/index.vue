@@ -77,6 +77,7 @@ import eventController from "@/api/eventController";
 import HighlightVue from "@/components/highlight/index.vue";
 import { DocumentCopy } from "@element-plus/icons-vue";
 import useCommon from "@/hooks/useCommon";
+import { ElNotification } from "element-plus";
 
 const editableContent = ref("");
 const replyMsg = ref<string>("");
@@ -149,7 +150,20 @@ const sendMsg = async () => {
             .replace(/\\/g, "");
         }
       },
-      () => {
+      (data: any) => {
+        if (data) {
+          ElNotification({
+            title: "失败",
+            message: data.message,
+            type: "error",
+            duration: 1500,
+          });
+          const localStorageName = ["user", "token"];
+          localStorageName.forEach((item) => {
+            localStorage.removeItem(item);
+          });
+          location.reload();
+        }
         console.log("结束了");
         isReply.value = false;
       }

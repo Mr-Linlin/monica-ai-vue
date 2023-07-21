@@ -1,5 +1,8 @@
 import { stringify } from 'qs';;
 import axios from 'axios'
+import { ElNotification } from "element-plus";
+
+
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 type Result<T> = {
   code: number;
@@ -31,16 +34,33 @@ class Request {
           case 200:
           case 201:
             return Promise.resolve(response.data)
-          case 401:
-            return Promise.reject('token身份过期')
         }
         return Promise.resolve(response.data)
       }
       return Promise.reject('服务器异常')
     }, (error: any) => {
-      console.log(error, 'error');
-      return Promise.reject(error.response)
+      const code = error.response.data.code
+      if (code == 401) {
+        ElNotification({
+          title: "失败",
+          message: error.response.data.message,
+          type: "error",
+          duration: 1500,
+        });
+        const localStorageName = [
+          'user',
+          'token',
+        ]
+        localStorageName.forEach((item) => {
+          localStorage.removeItem(item)
+        })
+      }
+      setTimeout(() => {
+        location.reload()
+      }, 1500);
+      return
     })
+
   }
   public get<T = any>(
     url: string,
