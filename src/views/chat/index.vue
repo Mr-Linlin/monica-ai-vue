@@ -45,7 +45,9 @@
           >
         </div>
         <div class="box-btn my-1.5">
-          <el-button size="small" type="primary">新会话</el-button>
+          <el-button size="small" type="primary" @click="newSession"
+            >新会话</el-button
+          >
           <el-button size="small">历史记录</el-button>
           <el-button size="small">提示词</el-button>
         </div>
@@ -201,6 +203,10 @@ const scrollEnd = () => {
       }
     }
   }, 100);
+};
+// 新会话
+const newSession = () => {
+  chatList.splice(1, chatList.length - 1);
 };
 </script>
 <style scoped lang="scss">

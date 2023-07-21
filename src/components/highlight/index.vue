@@ -11,6 +11,7 @@ import { marked } from "marked";
 import useCommon from "@/hooks/useCommon";
 hljs.configure({
   ignoreUnescapedHTML: true,
+  throwUnescapedHTML: false,
 });
 const html = ref("");
 const markdownRef = ref(null);
