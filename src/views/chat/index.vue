@@ -1,14 +1,19 @@
 <template>
   <div class="chat">
     <div class="content flex-1 flex flex-col">
-      <div class="chat-box flex-1" ref="chatBox">
+      <div class="chat-box flex-1 reactive" ref="chatBox">
         <div
-          class="chat-item mt-8"
+          class="chat-item mt-10"
           v-for="(item, index) in chatList"
           :key="index"
         >
           <div class="system flex" v-if="item.role == 'system'">
             <div class="system-item">
+              <!-- <highlight-vue
+                v-if="chatList.length - 1 == index"
+                v-type-writer
+                :content="item.content || 'waiting...'"
+              /> -->
               <highlight-vue :content="item.content || 'waiting...'" />
             </div>
           </div>
@@ -17,9 +22,28 @@
               <highlight-vue :content="item.content" />
             </div>
           </div>
+          <div class="text-xs flex flex-col justify-center">
+            <div
+              class="flex items-center"
+              :class="item.role == 'system' ? '' : 'justify-end'"
+            >
+              <div class="date">
+                {{ formatTime(item.time, "", "hh:mm:ss") }}
+              </div>
+              <el-divider direction="vertical" class="ml-10 mt-1 mr-10" />
+              <div class="cursor-pointer mt-1" @click="copyText(item.content)">
+                <el-icon><DocumentCopy /></el-icon>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="chat-input felx flex-col">
+      <div class="chat-input felx flex-col reactive">
+        <div class="stop-chat absolute">
+          <el-button size="small" type="primary" plain v-if="isReply"
+            >停止响应</el-button
+          >
+        </div>
         <div class="box-btn my-1.5">
           <el-button size="small" type="primary">新会话</el-button>
           <el-button size="small">历史记录</el-button>
@@ -49,14 +73,20 @@
 import { reactive, ref, watch } from "vue";
 import eventController from "@/api/eventController";
 import HighlightVue from "@/components/highlight/index.vue";
+import { DocumentCopy } from "@element-plus/icons-vue";
+import useCommon from "@/hooks/useCommon";
 
 const editableContent = ref("");
 const replyMsg = ref<string>("");
+const isReply = ref(false);
 const chatBox = ref(null);
+const { copyText, formatTime } = useCommon();
+
 const chatList = reactive([
   {
     role: "system",
     content: "你好，我是一个智能AI，你可以向我问些问题。",
+    time: new Date().getTime(),
   },
 ]);
 
@@ -77,6 +107,7 @@ const sendQuestion = () => {
 const sendMsg = async () => {
   if (editableContent.value) {
     replyMsg.value = "";
+    isReply.value = true;
     const url = "/chat/completion";
     const contentStr = JSON.stringify(editableContent.value);
     const content = contentStr.replace(/\\n/g, "<br>");
@@ -85,10 +116,12 @@ const sendMsg = async () => {
     const user = {
       role: "user",
       content: sendContent,
+      time: new Date().getTime(),
     };
     const system = {
       role: "system",
       content: "",
+      time: new Date().getTime(),
     };
     chatList.push(user);
 
@@ -106,11 +139,17 @@ const sendMsg = async () => {
         const regex = /\\"content\\":\\"(.*?)\\"/g;
         let match;
         while ((match = regex.exec(res)) !== null) {
-          replyMsg.value += match[1].replace(/\\n/g, "\n").replace(/\\/g, "");
+          replyMsg.value += match[1]
+            .replace(/\\n/g, "\n")
+            .replace(/(\\u[0-9a-fA-F]{4})/g, function (match, p1) {
+              return String.fromCharCode(parseInt(p1.substring(2), 16));
+            })
+            .replace(/\\/g, "");
         }
       },
       () => {
         console.log("结束了");
+        isReply.value = false;
       }
     );
   }
@@ -120,28 +159,30 @@ const showReplyContent = () => {
   if (chatList.length > 0) {
     const length = chatList.length - 1;
     const originalValue = replyMsg.value;
-    let resLength = originalValue.length;
-    let index = chatList[length].content.length; // 从已经显示的部分长度开始
-    let currentLength = resLength; // 用于判断 replyMsg 是否发生变化
+    const resLength = originalValue.length;
+    let index = chatList[length].content.length;
+    let currentLength = resLength;
 
-    const typingInterval = setInterval(() => {
+    const printChar = () => {
       if (index <= resLength) {
         if (currentLength === replyMsg.value.length) {
-          chatList[length].content = originalValue.substr(0, index);
+          const newContent = originalValue.substr(index, 1);
+          chatList[length].content += newContent;
           index++;
           scrollEnd();
+          requestAnimationFrame(printChar);
         } else {
           const newContent = replyMsg.value.substr(currentLength);
           chatList[length].content += newContent;
           currentLength = replyMsg.value.length;
-          resLength = currentLength; // 更新 length 为新的 replyMsg 的长度
-          index = chatList[length].content.length; // 更新 index 为已显示内容的长度
+          index = chatList[length].content.length;
           scrollEnd();
+          requestAnimationFrame(printChar);
         }
-      } else {
-        clearInterval(typingInterval);
       }
-    }, 5);
+    };
+
+    printChar();
   }
 };
 // 滚动到底部
@@ -175,7 +216,7 @@ const scrollEnd = () => {
       position: relative;
       max-height: 531px;
       overflow-y: auto;
-      padding: 15px 20px;
+      padding: 20px;
       .chat-item {
         width: 100%;
 
@@ -213,6 +254,11 @@ const scrollEnd = () => {
       border-top: 1px solid rgba(145, 158, 171, 0.05);
       border-bottom-left-radius: 12px;
       border-bottom-right-radius: 12px;
+      .stop-chat {
+        top: -2.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+      }
       .editable-area {
         position: relative;
         height: 115px;
@@ -224,6 +270,11 @@ const scrollEnd = () => {
           width: 100%;
           user-select: none;
           padding: 12px;
+        }
+        textarea:focus {
+          outline-color: transparent;
+          resize: none;
+          outline: none;
         }
         .content-count {
           position: absolute;
