@@ -8,6 +8,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 const resolve = (dir: string) => path.join(__dirname, dir)
 
 export default defineConfig({
+  base: './',
   plugins: [vue(),
   AutoImport({
     imports: ["vue", "vue-router"],
