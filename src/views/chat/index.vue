@@ -88,7 +88,7 @@ const { copyText, formatTime } = useCommon();
 const chatList = reactive([
   {
     role: "system",
-    content: "你好，我是一个智能AI，你可以向我问些问题。",
+    content: "欢迎回来！您想聊些什么？",
     time: new Date().getTime(),
   },
 ]);
@@ -126,6 +126,10 @@ const sendMsg = async () => {
       content: "",
       time: new Date().getTime(),
     };
+    if (chatList.length > 14) {
+      console.log(chatList.length);
+      chatList.splice(2, 2);
+    }
     chatList.push(user);
 
     const data = JSON.stringify({
