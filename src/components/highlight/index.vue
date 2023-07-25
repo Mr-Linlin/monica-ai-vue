@@ -57,7 +57,7 @@ const highlightCode = () => {
       const pres = (markdownRef.value as HTMLElement).querySelectorAll(
         "pre code"
       );
-      pres.forEach((pre) => {
+      pres.forEach((pre: any) => {
         hljs.highlightElement(pre);
         const copys = pre.querySelectorAll(".copy-btn");
         if (copys.length == 0) {
