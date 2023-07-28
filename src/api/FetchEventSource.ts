@@ -4,7 +4,6 @@ class FetchEventSource {
   startFetchEvent(url: string, body: any, onMessage: (res: string) => void, onEnd: () => void, onError: (data: any) => void, headers = {}) {
     const eventController = new AbortController();
     this.abortController = eventController;
-
     const fetchOptions = {
       method: 'POST',
       body: JSON.stringify(body),

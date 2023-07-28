@@ -155,10 +155,22 @@ const toPage = (type: string) => {
     filter: blur(50px);
     -webkit-filter: blur(50px);
   }
+  @media (min-width: 1200px) {
+    .fiona-main {
+      width: 70%;
+      min-width: 370px;
+      max-width: 1152px;
+    }
+  }
+  @media (max-width: 768px) {
+    .fiona-main {
+      min-width: 370px;
+    }
+  }
   .fiona-main {
-    width: 70%;
-    min-width: 500px;
-    max-width: 1152px;
+    // width: 70%;
+    // min-width: 370px;
+    // max-width: 1152px;
     border: 1px solid rgb(229, 232, 235);
     box-shadow: rgba(145, 158, 171, 0.16) 0px 8px 16px;
     border-radius: 12px;

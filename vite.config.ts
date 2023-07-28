@@ -53,7 +53,7 @@ export default defineConfig({
     proxy: {
       // 选项写法
       '/api': {
-        target: 'http://localhost:7003/api',
+        target: 'http://43.138.149.42:7003/api',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }

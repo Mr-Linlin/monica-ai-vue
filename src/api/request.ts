@@ -11,7 +11,7 @@ type Result<T> = {
 };
 class Request {
   instance: AxiosInstance
-  baseConfig: AxiosRequestConfig = { baseURL: process.env.NODE_ENV === 'development' ? '/api' : 'http://localhost:7003/api', timeout: 60000 }
+  baseConfig: AxiosRequestConfig = { baseURL: process.env.NODE_ENV === 'development' ? '/api' : 'http://43.138.149.42:7003/api', timeout: 60000 }
   constructor(config: AxiosRequestConfig) {
     this.instance = axios.create(Object.assign(this.baseConfig, config))
     this.instance.interceptors.request.use(

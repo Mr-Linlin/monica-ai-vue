@@ -188,8 +188,11 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   width: 100%;
   height: 100vh;
   .login-form {
-    height: 580px;
+    // height: 580px;
     border-radius: 10px;
+    height: 60vh;
+    // width: 60vw;
+    min-width: 370px;
   }
   .left {
     width: 35%;
@@ -203,7 +206,18 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 }
 </style>
 <style>
-.input-with {
-  width: 28rem;
+@media (min-width: 1200px) {
+  .input-with {
+    width: 30rem;
+  }
 }
+@media (max-width: 768px) {
+  .input-with {
+    width: 100%;
+  }
+}
+
+/* .input-with {
+  width: 24.7rem;
+} */
 </style>
