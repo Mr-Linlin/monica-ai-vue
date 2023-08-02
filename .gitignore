@@ -12,6 +12,7 @@ dist
 dist-ssr
 src/api/eventController.ts
 *.local
+config
 
 # Editor directories and files
 .vscode/*

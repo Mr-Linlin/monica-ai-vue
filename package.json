@@ -7,11 +7,13 @@
     "dev": "vite",
     "lint": "eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx",
     "prettier": "prettier --write .",
-    "build": "vite build"
+    "build": "vite build",
+    "build:oss": "vite build  && node upload.oss.cjs"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
     "@microsoft/fetch-event-source": "^2.0.1",
+    "ali-oss": "^6.18.0",
     "axios": "^1.4.0",
     "echarts": "^5.4.2",
     "element-plus": "^2.3.8",
