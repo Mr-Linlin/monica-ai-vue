@@ -69,6 +69,7 @@
         </div>
       </div>
     </div>
+    <div class="link">采集到ushop</div>
   </div>
 </template>
 <script setup lang="ts">
@@ -229,8 +230,11 @@ const newSession = () => {
 </script>
 <style scoped lang="scss">
 .chat {
+  position: relative;
   height: 100%;
-
+  .link {
+    position: absolute;
+  }
   .content {
     height: 100%;
 

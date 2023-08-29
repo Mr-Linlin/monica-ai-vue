@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
+import vueJsx from "@vitejs/plugin-vue-jsx";
+
 // import * as path from 'path';
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
@@ -10,7 +12,7 @@ const resolve = (dir: string) => path.join(__dirname, dir)
 export default defineConfig({
   // base: 'https://lzt-cartoon.oss-cn-shenzhen.aliyuncs.com/dist/',
   base: './',
-  plugins: [vue(),
+  plugins: [vue(), [vueJsx(), { optimize: true }],
   AutoImport({
     imports: ["vue", "vue-router"],
     include: [/\.vue$/, /\.vue\?vue/, /\.tsx$/, /\.t\?js$/],
@@ -46,6 +48,9 @@ export default defineConfig({
         math: 'parens-division',
       },
     },
+    modules: {
+      localsConvention: 'camelCase'
+    }
 
   },
   server: {
@@ -54,7 +59,7 @@ export default defineConfig({
     proxy: {
       // 选项写法
       '/api': {
-        target: 'http://43.138.149.42:7003/api',
+        target: 'http://127.0.0.1:7003/api',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }

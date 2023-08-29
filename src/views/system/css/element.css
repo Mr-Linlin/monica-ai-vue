@@ -1,0 +1,17 @@
+.el-menu-item:hover {
+  /* background: #1c88cf !important; */
+  color: #fff !important;
+}
+
+.el-submenu__title:hover {
+  /* background: #1c88cf !important; */
+  color: #fff !important;
+}
+
+.el-sub-menu .is-active {
+  background-color: #0960bd !important;
+}
+
+.el-menu {
+  border: none;
+}

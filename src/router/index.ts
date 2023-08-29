@@ -17,10 +17,32 @@ const routes: RouteRecordRaw[] = [
     name: 'login',
     component: () => import('@/views/login/index.vue')
   },
+  {
+    path: '/system',
+    component: () => import('@/views/system/layout'),
+    redirect: '/user-list',
+    children: [
+      {
+        path: '/user-list',
+        name: "user-list",
+        component: () => import('@/views/system/page/user-list/index')
+      },
+      {
+        path: '/role-list',
+        name: "role-list",
+        component: () => import('@/views/system/page/user-list/index')
+      },
+      {
+        path: '/prompt-list',
+        name: "prompt-list",
+        component: () => import('@/views/system/page/prompt/index')
+      }
+    ]
+  },
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 })
 // 导航守卫
